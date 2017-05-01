@@ -1,4 +1,7 @@
 ﻿open FSharp.Data
+open FSharp.Charting
+open FSharp.Charting._ChartStyleExtensions
+open FSharp.Charting
 
 [<Literal>]
 let yahooapis = "https://query.yahooapis.com/v1/public/yql"
@@ -34,3 +37,14 @@ type game = ChessGame.Game.Start.``♙D2D4``.``♟C7C5``.``♙E2E3``.``♟C5D4``
 let game = new game()
 printfn "%s" (game.ToString())
 
+let wb = WorldBankData.GetDataContext()
+
+let birthRate = wb.Countries.Israel.Indicators.``Birth rate, crude (per 1,000 people)``.Values
+let mobileSubscription = wb.Countries.Israel.Indicators.``Mobile cellular subscriptions (per 100 people)``.Values
+
+//#load "../packages/FSharp.Charting.0.90.14/FSharp.Charting.fsx"
+Chart.Combine(
+   [ Chart.Line(birthRate,Name="Birth rate")
+     Chart.Line(mobileSubscription,Name="Mobile subscriptions") ])
+|> Chart.WithLegend true
+|> Chart.Show
