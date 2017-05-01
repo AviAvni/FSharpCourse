@@ -21,6 +21,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module08", "FS
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module09", "FSharpCourse.Module09\FSharpCourse.Module09.fsproj", "{6390A26D-A84C-4D69-AD49-1E06BA89E791}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module03.ChessTypeProvider", "FSharpCourse.Module03.ChessTypeProvider\FSharpCourse.Module03.ChessTypeProvider.fsproj", "{7A8CA38B-F22E-4866-890E-BE0305785257}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{6390A26D-A84C-4D69-AD49-1E06BA89E791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6390A26D-A84C-4D69-AD49-1E06BA89E791}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6390A26D-A84C-4D69-AD49-1E06BA89E791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A8CA38B-F22E-4866-890E-BE0305785257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A8CA38B-F22E-4866-890E-BE0305785257}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
