@@ -1,7 +1,5 @@
 ﻿open FSharp.Data
 open FSharp.Charting
-open FSharp.Charting._ChartStyleExtensions
-open FSharp.Charting
 
 [<Literal>]
 let yahooapis = "https://query.yahooapis.com/v1/public/yql"
