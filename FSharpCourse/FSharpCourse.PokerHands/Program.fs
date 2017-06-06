@@ -55,7 +55,7 @@ type Ranks =
     | StraightFlush of int
     | FourOfAKind   of int
     | FullHouse     of int * int
-    | Flush         of int * int * int * int * int
+    | Flush         of int
     | Straight      of int
     | ThreeOfAKind  of int
     | TwoPair       of int * int * int
@@ -95,7 +95,7 @@ let evaluate hand =
     | (_, 4) :: [] -> 
         match rankGroup with
         | Straight high -> StraightFlush(high)
-        | _             -> Flush(ranks.[0], ranks.[1], ranks.[2], ranks.[3], ranks.[4])
+        | _             -> Flush(ranks.[0])
     | _ -> 
         match rankGroup with
         | Straight high                              -> Straight(high)
@@ -108,15 +108,58 @@ let evaluate hand =
 
 let compare rank1 rank2 =
     match rank1, rank2 with
-    | StraightFlush c1, StraightFlush c2 -> if c1 > c2 then Player1 elif c1 < c2 then Player2 else Tie
+    | StraightFlush r1, StraightFlush r2 when r1 > r2 -> Player1
+    | StraightFlush r1, StraightFlush r2 when r1 < r2 -> Player2
     | StraightFlush _, _ -> Player1
     | _, StraightFlush _ -> Player2
+    | FourOfAKind r1, FourOfAKind r2 when r1 > r2 -> Player1
+    | FourOfAKind r1, FourOfAKind r2 when r1 < r2 -> Player1
+    | FourOfAKind _, _ -> Player1
+    | _, FourOfAKind _ -> Player2
+    | FullHouse(r1, _), FullHouse(r2, _) when r1 > r2 -> Player1
+    | FullHouse(r1, _), FullHouse(r2, _) when r1 < r2 -> Player2
+    | FullHouse(_, r1), FullHouse(_, r2) when r1 > r2 -> Player1
+    | FullHouse(_, r1), FullHouse(_, r2) when r1 < r2 -> Player2
+    | FullHouse _, _ -> Player1
+    | _, FullHouse _ -> Player2
+    | Flush r1, Flush r2 when r1 > r2 -> Player1
+    | Flush r1, Flush r2 when r1 < r2 -> Player2
+    | Flush _, _ -> Player1
+    | _, Flush _ -> Player2
+    | Straight r1, Straight r2 when r1 > r2 -> Player1
+    | Straight r1, Straight r2 when r1 < r2 -> Player2
+    | Straight _, _ -> Player1
+    | _, Straight _ -> Player2
+    | ThreeOfAKind r1, ThreeOfAKind r2  when r1 > r2 -> Player1
+    | ThreeOfAKind r1, ThreeOfAKind r2  when r1 < r2 -> Player2
+    | ThreeOfAKind _, _ -> Player1
+    | _, ThreeOfAKind _ -> Player2
+    | TwoPair(r1, _, _), TwoPair(r2, _, _) when r1 > r2 -> Player1
+    | TwoPair(r1, _, _), TwoPair(r2, _, _) when r1 < r2 -> Player2
+    | TwoPair(_, r1, _), TwoPair(_, r2, _) when r1 > r2 -> Player1
+    | TwoPair(_, r1, _), TwoPair(_, r2, _) when r1 < r2 -> Player2
+    | TwoPair(_, _, r1), TwoPair(_, _, r2) when r1 > r2 -> Player1
+    | TwoPair(_, _, r1), TwoPair(_, _, r2) when r1 < r2 -> Player2
+    | TwoPair _, _ -> Player1
+    | _, TwoPair _ -> Player2
+    | OnePair(r1, _, _, _), OnePair(r2, _, _, _) when r1 > r2 -> Player1
+    | OnePair(r1, _, _, _), OnePair(r2, _, _, _) when r1 < r2 -> Player2
+    | OnePair(_, r1, _, _), OnePair(_, r2, _, _) when r1 > r2 -> Player1
+    | OnePair(_, r1, _, _), OnePair(_, r2, _, _) when r1 < r2 -> Player2
+    | OnePair(_, _, r1, _), OnePair(_, _, r2, _) when r1 > r2 -> Player1
+    | OnePair(_, _, r1, _), OnePair(_, _, r2, _) when r1 < r2 -> Player2
+    | OnePair(_, _, _, r1), OnePair(_, _, _, r2) when r1 > r2 -> Player1
+    | OnePair(_, _, _, r1), OnePair(_, _, _, r2) when r1 < r2 -> Player2
+    | OnePair _, _ -> Player1
+    | _, OnePair _ -> Player2
+    | HighCard(r11, r12, r13, r14, r15), HighCard(r21, r22, r23, r24, r25) -> if r11 > r21 then Player1 elif r11 < r21 then Player2  elif r12 > r22 then Player1 elif r12 < r22 then Player2 elif r13 > r23 then Player1 elif r13 < r23 then Player2 elif r14 > r24 then Player1 elif r14 < r24 then Player2 elif r15 > r25 then Player1 elif r15 < r25 then Player2 else Tie
+    | _ -> Tie
 
 
 [<EntryPoint>]
 let main argv =
-    let card (s : string) =
-        let suit =
+    let parseCard (s : string) =
+        let parseSuit =
             match s.[1] with
             | 'H' -> Hearts
             | 'D' -> Diamonds
@@ -124,7 +167,7 @@ let main argv =
             | 'S' -> Spades
             | _ -> failwith "Invalid suit"
 
-        let rank =
+        let parseRank =
             match s.[0] with
             | 'A' -> Ace
             | 'K' -> King
@@ -141,13 +184,15 @@ let main argv =
             | '2' -> Two
             | _ -> failwith "Invalid rank"
 
-        rank, suit
+        parseRank, parseSuit
 
     let hands = Console.ReadLine().Split([| ' ' |], StringSplitOptions.RemoveEmptyEntries)
-    let [| w1; w2; w3; w4; w5|] = hands.[1..5] |> Array.map card
+    let [| w1; w2; w3; w4; w5|] = hands.[1..5] |> Array.map parseCard
     let whiteScore = evaluate (w1, w2, w3, w4, w5)
-    let [| b1; b2; b3; b4; b5|] = hands.[7..11] |> Array.map card
+    let [| b1; b2; b3; b4; b5|] = hands.[7..11] |> Array.map parseCard
     let blackScore = evaluate (b1, b2, b3, b4, b5)
-
-    printfn "%A" hands
+    match compare whiteScore blackScore with
+    | Player1 -> printfn "White win"
+    | Player2 -> printfn "Black win"
+    | Tie -> printfn "Tie"
     0 // return an integer exit code
