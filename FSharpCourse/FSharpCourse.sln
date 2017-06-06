@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module01", "FSharpCourse.Module01\FSharpCourse.Module01.fsproj", "{4E70E567-E814-43C9-B837-EFA59D8F77E0}"
 EndProject
@@ -22,6 +22,10 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module09", "FSharpCourse.Module09\FSharpCourse.Module09.fsproj", "{6390A26D-A84C-4D69-AD49-1E06BA89E791}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module03.ChessTypeProvider", "FSharpCourse.Module03.ChessTypeProvider\FSharpCourse.Module03.ChessTypeProvider.fsproj", "{7A8CA38B-F22E-4866-890E-BE0305785257}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exercises", "Exercises", "{0C9344E6-C6AC-492D-855F-CF7817C55D2F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.PokerHands", "FSharpCourse.PokerHands\FSharpCourse.PokerHands.fsproj", "{0E502E15-73DB-45CB-A706-54151CE6F483}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,8 +72,15 @@ Global
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E502E15-73DB-45CB-A706-54151CE6F483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E502E15-73DB-45CB-A706-54151CE6F483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E502E15-73DB-45CB-A706-54151CE6F483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E502E15-73DB-45CB-A706-54151CE6F483}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E502E15-73DB-45CB-A706-54151CE6F483} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 	EndGlobalSection
 EndGlobal
