@@ -1,198 +1,45 @@
 ﻿open System
+open Cards
+open Poker
 
-type Suit = 
-    | Hearts
-    | Diamonds
-    | Clubs
-    | Spades
+let parseCard (s : string) =
+    let parseSuit =
+        match s.[1] with
+        | 'H' -> Hearts
+        | 'D' -> Diamonds
+        | 'C' -> Clubs
+        | 'S' -> Spades
+        | _ -> failwith "Invalid suit"
 
-type CardRank = 
-    | Ace
-    | King
-    | Queen
-    | Jack
-    | Ten
-    | Nine
-    | Eight
-    | Seven
-    | Six
-    | Five
-    | Four
-    | Three
-    | Two
+    let parseRank =
+        match s.[0] with
+        | 'A' -> Ace
+        | 'K' -> King
+        | 'Q' -> Queen
+        | 'J' -> Jack
+        | 'T' -> Ten
+        | '9' -> Nine
+        | '8' -> Eight
+        | '7' -> Seven
+        | '6' -> Six
+        | '5' -> Five
+        | '4' -> Four
+        | '3' -> Three
+        | '2' -> Two
+        | _ -> failwith "Invalid rank"
 
-type Card = CardRank * Suit
-
-type Winner =
-    | Player1
-    | Player2
-    | Tie
-
-let rank card = 
-    match card with
-    | Ace -> 14
-    | King -> 13
-    | Queen -> 12
-    | Jack -> 11
-    | Ten -> 10
-    | Nine -> 9
-    | Eight -> 8
-    | Seven -> 7
-    | Six -> 6
-    | Five -> 5
-    | Four -> 4
-    | Three -> 3
-    | Two -> 2
-
-let Deck : Card list = 
-    [ for x in [ Hearts; Diamonds; Clubs; Spades ] do
-        for y in [ Ace; King; Queen; Jack; Ten; Nine; Eight; Seven; Six; Five; Four; Three; Two ] do
-            yield (y, x) ]
-
-type Hand = Card * Card * Card * Card * Card
-
-type Ranks = 
-    | StraightFlush of int
-    | FourOfAKind   of int
-    | FullHouse     of int * int
-    | Flush         of int
-    | Straight      of int
-    | ThreeOfAKind  of int
-    | TwoPair       of int * int * int
-    | OnePair       of int * int * int * int
-    | HighCard      of int * int * int * int * int
-
-let evaluate hand = 
-    let (c1, c2, c3, c4, c5) = hand
-    let listHand = [| c1; c2; c3; c4; c5 |]
-    let ranks = listHand |> Array.map (fun c -> fst c |> rank) |> Array.sortBy (fun r -> -r)
-    
-    let suitGroup = 
-        listHand
-        |> Seq.groupBy (fun c -> snd c)
-        |> Seq.map (fun c -> (fst c, snd c |> Seq.length))
-        |> Seq.sortBy (fun g -> snd g)
-        |> List.ofSeq
-    
-    let rankGroup = 
-        listHand
-        |> Seq.groupBy (fun c -> fst c)
-        |> Seq.map (fun c -> (fst c |> rank, snd c |> Seq.length))
-        |> Seq.sortBy (fun g -> snd g)
-        |> List.ofSeq
-    
-    let (|Straight|_|) rankGroup = 
-        match rankGroup with
-        | (a, 1) :: (b, 1) :: (c, 1) :: (d, 1) :: (e, 1) :: [] when a - 1 = b && a - 2 = c && a - 3 = d 
-                                                                    && (a - 4 = e || a - 12 = e) -> 
-            let high = 
-                if a - 12 = e then b
-                else a
-            Some(high)
-        | _ -> None
-    
-    match suitGroup with
-    | (_, 4) :: [] -> 
-        match rankGroup with
-        | Straight high -> StraightFlush(high)
-        | _             -> Flush(ranks.[0])
-    | _ -> 
-        match rankGroup with
-        | Straight high                              -> Straight(high)
-        | (a, 4) :: _                                -> FourOfAKind(a)
-        | (a, 3) :: (b, 2) :: _                      -> FullHouse(a, b)
-        | (a, 3) :: _                                -> ThreeOfAKind(a)
-        | (a, 2) :: (b, 2) :: (c, 1) :: []           -> TwoPair(a, b, c)
-        | (a, 2) :: (b, 1) :: (c, 1) :: (d, 1) :: [] -> OnePair(a, b, c, d)
-        | _                                          -> HighCard(ranks.[0], ranks.[1], ranks.[2], ranks.[3], ranks.[4])
-
-let compare rank1 rank2 =
-    match rank1, rank2 with
-    | StraightFlush r1, StraightFlush r2 when r1 > r2 -> Player1
-    | StraightFlush r1, StraightFlush r2 when r1 < r2 -> Player2
-    | StraightFlush _, _ -> Player1
-    | _, StraightFlush _ -> Player2
-    | FourOfAKind r1, FourOfAKind r2 when r1 > r2 -> Player1
-    | FourOfAKind r1, FourOfAKind r2 when r1 < r2 -> Player1
-    | FourOfAKind _, _ -> Player1
-    | _, FourOfAKind _ -> Player2
-    | FullHouse(r1, _), FullHouse(r2, _) when r1 > r2 -> Player1
-    | FullHouse(r1, _), FullHouse(r2, _) when r1 < r2 -> Player2
-    | FullHouse(_, r1), FullHouse(_, r2) when r1 > r2 -> Player1
-    | FullHouse(_, r1), FullHouse(_, r2) when r1 < r2 -> Player2
-    | FullHouse _, _ -> Player1
-    | _, FullHouse _ -> Player2
-    | Flush r1, Flush r2 when r1 > r2 -> Player1
-    | Flush r1, Flush r2 when r1 < r2 -> Player2
-    | Flush _, _ -> Player1
-    | _, Flush _ -> Player2
-    | Straight r1, Straight r2 when r1 > r2 -> Player1
-    | Straight r1, Straight r2 when r1 < r2 -> Player2
-    | Straight _, _ -> Player1
-    | _, Straight _ -> Player2
-    | ThreeOfAKind r1, ThreeOfAKind r2  when r1 > r2 -> Player1
-    | ThreeOfAKind r1, ThreeOfAKind r2  when r1 < r2 -> Player2
-    | ThreeOfAKind _, _ -> Player1
-    | _, ThreeOfAKind _ -> Player2
-    | TwoPair(r1, _, _), TwoPair(r2, _, _) when r1 > r2 -> Player1
-    | TwoPair(r1, _, _), TwoPair(r2, _, _) when r1 < r2 -> Player2
-    | TwoPair(_, r1, _), TwoPair(_, r2, _) when r1 > r2 -> Player1
-    | TwoPair(_, r1, _), TwoPair(_, r2, _) when r1 < r2 -> Player2
-    | TwoPair(_, _, r1), TwoPair(_, _, r2) when r1 > r2 -> Player1
-    | TwoPair(_, _, r1), TwoPair(_, _, r2) when r1 < r2 -> Player2
-    | TwoPair _, _ -> Player1
-    | _, TwoPair _ -> Player2
-    | OnePair(r1, _, _, _), OnePair(r2, _, _, _) when r1 > r2 -> Player1
-    | OnePair(r1, _, _, _), OnePair(r2, _, _, _) when r1 < r2 -> Player2
-    | OnePair(_, r1, _, _), OnePair(_, r2, _, _) when r1 > r2 -> Player1
-    | OnePair(_, r1, _, _), OnePair(_, r2, _, _) when r1 < r2 -> Player2
-    | OnePair(_, _, r1, _), OnePair(_, _, r2, _) when r1 > r2 -> Player1
-    | OnePair(_, _, r1, _), OnePair(_, _, r2, _) when r1 < r2 -> Player2
-    | OnePair(_, _, _, r1), OnePair(_, _, _, r2) when r1 > r2 -> Player1
-    | OnePair(_, _, _, r1), OnePair(_, _, _, r2) when r1 < r2 -> Player2
-    | OnePair _, _ -> Player1
-    | _, OnePair _ -> Player2
-    | HighCard(r11, r12, r13, r14, r15), HighCard(r21, r22, r23, r24, r25) -> if r11 > r21 then Player1 elif r11 < r21 then Player2  elif r12 > r22 then Player1 elif r12 < r22 then Player2 elif r13 > r23 then Player1 elif r13 < r23 then Player2 elif r14 > r24 then Player1 elif r14 < r24 then Player2 elif r15 > r25 then Player1 elif r15 < r25 then Player2 else Tie
-    | _ -> Tie
-
+    parseRank, parseSuit
 
 [<EntryPoint>]
 let main argv =
-    let parseCard (s : string) =
-        let parseSuit =
-            match s.[1] with
-            | 'H' -> Hearts
-            | 'D' -> Diamonds
-            | 'C' -> Clubs
-            | 'S' -> Spades
-            | _ -> failwith "Invalid suit"
-
-        let parseRank =
-            match s.[0] with
-            | 'A' -> Ace
-            | 'K' -> King
-            | 'Q' -> Queen
-            | 'J' -> Jack
-            | 'T' -> Ten
-            | '9' -> Nine
-            | '8' -> Eight
-            | '7' -> Seven
-            | '6' -> Six
-            | '5' -> Five
-            | '4' -> Four
-            | '3' -> Three
-            | '2' -> Two
-            | _ -> failwith "Invalid rank"
-
-        parseRank, parseSuit
-
     let hands = Console.ReadLine().Split([| ' ' |], StringSplitOptions.RemoveEmptyEntries)
     let [| w1; w2; w3; w4; w5|] = hands.[1..5] |> Array.map parseCard
-    let whiteScore = evaluate (w1, w2, w3, w4, w5)
+    let blackScore = evaluate (w1, w2, w3, w4, w5)
     let [| b1; b2; b3; b4; b5|] = hands.[7..11] |> Array.map parseCard
-    let blackScore = evaluate (b1, b2, b3, b4, b5)
-    match compare whiteScore blackScore with
-    | Player1 -> printfn "White win"
-    | Player2 -> printfn "Black win"
-    | Tie -> printfn "Tie"
+    let whiteScore = evaluate (b1, b2, b3, b4, b5)
+    match compare blackScore whiteScore with
+    | Player1 r -> printfn "Black win %A" r
+    | Player2 r -> printfn "White win %A" r
+    | Tie r -> printfn "Tie %A" r
+
     0 // return an integer exit code
