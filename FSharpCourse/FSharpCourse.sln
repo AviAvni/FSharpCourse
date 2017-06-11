@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module01", "FSharpCourse.Module01\FSharpCourse.Module01.fsproj", "{4E70E567-E814-43C9-B837-EFA59D8F77E0}"
 EndProject
@@ -87,6 +87,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{7A8CA38B-F22E-4866-890E-BE0305785257} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 		{0E502E15-73DB-45CB-A706-54151CE6F483} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 		{7D27B53F-D728-470D-9EBA-DF53AE1208EA} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 	EndGlobalSection

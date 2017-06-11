@@ -1,18 +1,7 @@
-﻿let printerAgent = MailboxProcessor.Start(fun inbox-> 
-    // the message processing function
-    let rec messageLoop() = async {
-        // read a message
-        let! msg = inbox.Receive()
-        // process a message
-        printfn "message is: %s" msg
-        // loop to top
-        return! messageLoop()  
-        }
-    // start the loop 
-    messageLoop() 
-    )
+﻿// Learn more about F# at http://fsharp.org
+// See the 'F# Tutorial' project for more help.
 
-printerAgent.Post "hello" 
-printerAgent.Post "hello again" 
-printerAgent.Post "hello a third time" 
-
+[<EntryPoint>]
+let main argv = 
+    printfn "%A" argv
+    0 // return an integer exit code
