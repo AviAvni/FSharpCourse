@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4b56cfeb-5e27-4670-976b-95a78cd42ff5</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>FSharpCourse.Module06</RootNamespace>
     <AssemblyName>FSharpCourse.Module06</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
