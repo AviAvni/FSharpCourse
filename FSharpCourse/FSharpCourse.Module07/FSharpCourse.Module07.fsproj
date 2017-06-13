@@ -56,84 +56,11 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="MissionariesAndCanibals.fs" />
-    <Compile Include="MissionariesAndCanibalsProperties.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Argu">
-      <HintPath>..\packages\Argu.3.7.0\lib\net40\Argu.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BenchmarkDotNet">
-      <HintPath>..\packages\BenchmarkDotNet.0.10.5\lib\net46\BenchmarkDotNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BenchmarkDotNet.Core">
-      <HintPath>..\packages\BenchmarkDotNet.Core.0.10.5\lib\net46\BenchmarkDotNet.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BenchmarkDotNet.Toolchains.Roslyn">
-      <HintPath>..\packages\BenchmarkDotNet.Toolchains.Roslyn.0.10.5\lib\net46\BenchmarkDotNet.Toolchains.Roslyn.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Expecto">
-      <HintPath>..\packages\Expecto.4.2.1\lib\net40\Expecto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Expecto.BenchmarkDotNet">
-      <HintPath>..\packages\Expecto.BenchmarkDotNet.4.2.1\lib\net40\Expecto.BenchmarkDotNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Expecto.FsCheck">
-      <HintPath>..\packages\Expecto.FsCheck.4.2.1\lib\net40\Expecto.FsCheck.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FsCheck">
-      <HintPath>..\packages\FsCheck.2.8.0\lib\net452\FsCheck.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.4.1.12\lib\net45\FSharp.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.Collections">
-      <HintPath>..\packages\FSharpx.Collections.1.16.0\lib\net40\FSharpx.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.2.0.0\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.2.0.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.DotNet.InternalAbstractions">
-      <HintPath>..\packages\Microsoft.DotNet.InternalAbstractions.1.0.0\lib\net451\Microsoft.DotNet.InternalAbstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.DotNet.PlatformAbstractions">
-      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.1.1.1\lib\net451\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

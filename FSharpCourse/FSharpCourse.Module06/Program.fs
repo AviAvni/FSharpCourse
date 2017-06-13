@@ -48,3 +48,7 @@ let tree =
 let main args = 
     runTestsWithArgs defaultConfig args tests |> ignore
     runTests defaultConfig properties
+    let history = MissionariesAndCanibals.Run ()
+    printfn "%A" history
+    MissionariesAndCanibalsProperties.``prove statements`` ()
+    0
