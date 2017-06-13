@@ -19,8 +19,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module07", "FS
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module08", "FSharpCourse.Module08\FSharpCourse.Module08.fsproj", "{67B84814-79A3-443C-99F6-AC6CDD43D163}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module09", "FSharpCourse.Module09\FSharpCourse.Module09.fsproj", "{6390A26D-A84C-4D69-AD49-1E06BA89E791}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module03.ChessTypeProvider", "FSharpCourse.Module03.ChessTypeProvider\FSharpCourse.Module03.ChessTypeProvider.fsproj", "{7A8CA38B-F22E-4866-890E-BE0305785257}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exercises", "Exercises", "{0C9344E6-C6AC-492D-855F-CF7817C55D2F}"
@@ -67,10 +65,6 @@ Global
 		{67B84814-79A3-443C-99F6-AC6CDD43D163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67B84814-79A3-443C-99F6-AC6CDD43D163}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67B84814-79A3-443C-99F6-AC6CDD43D163}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6390A26D-A84C-4D69-AD49-1E06BA89E791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6390A26D-A84C-4D69-AD49-1E06BA89E791}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6390A26D-A84C-4D69-AD49-1E06BA89E791}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6390A26D-A84C-4D69-AD49-1E06BA89E791}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.Build.0 = Release|Any CPU
