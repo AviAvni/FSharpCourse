@@ -1,6 +1,7 @@
 ﻿open System
 open FsXaml
 open System.Windows
+open System.Windows.Controls
 
 type MainWindow = XAML<"MainWindow.xaml">
 
@@ -12,8 +13,8 @@ let main _ =
     let app = Application()
     let win = MainWindow()
 
-    let button1 = win.button1;
-    let button2 = win.button2;
+    let button1 : Button = win.button1;
+    let button2 : Button = win.button2;
 
     button1.Click
     |> Event.merge button2.Click
