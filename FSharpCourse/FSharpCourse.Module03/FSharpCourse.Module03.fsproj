@@ -55,6 +55,11 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="SimpleTypeProvide.fs" />
+    <Compile Include="RealWorldTypeProvider.fs" />
+    <Compile Include="FunTypeProvider.fs" />
+    <Compile Include="SimpleChart.fs" />
+    <Compile Include="TypeProviderAndChart.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />

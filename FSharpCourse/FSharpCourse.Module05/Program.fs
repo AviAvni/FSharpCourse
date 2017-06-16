@@ -15,7 +15,7 @@ let main _ =
 
     let button1 : Button = win.button1;
     let button2 : Button = win.button2;
-
+    
     button1.Click
     |> Event.merge button2.Click
     |> Event.add (fun a -> MessageBox.Show "Hii" 
