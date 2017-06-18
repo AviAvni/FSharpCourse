@@ -7,7 +7,9 @@
     SizeToContent="WidthAndHeight">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -18,5 +20,11 @@
             x:Name="button2"
             Grid.Row="1"
             Content="Button 2" />
+        <TextBox
+            x:Name="txt"
+            Grid.Row="2" />
+        <TextBlock
+            x:Name="console"
+            Grid.Row="3" />
     </Grid>
 </Window>
