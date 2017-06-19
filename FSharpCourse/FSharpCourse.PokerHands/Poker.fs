@@ -2,22 +2,6 @@
 
 open Cards
 
-let rank card = 
-    match card with
-    | Ace   -> 14
-    | King  -> 13
-    | Queen -> 12
-    | Jack  -> 11
-    | Ten   -> 10
-    | Nine  -> 9
-    | Eight -> 8
-    | Seven -> 7
-    | Six   -> 6
-    | Five  -> 5
-    | Four  -> 4
-    | Three -> 3
-    | Two   -> 2
-
 type Hand = Card * Card * Card * Card * Card
 
 type PokerRank = 
@@ -35,6 +19,22 @@ type Winner =
     | Player1 of PokerRank
     | Player2 of PokerRank
     | Tie     of PokerRank
+
+let rank card = 
+    match card with
+    | Ace   -> 14
+    | King  -> 13
+    | Queen -> 12
+    | Jack  -> 11
+    | Ten   -> 10
+    | Nine  -> 9
+    | Eight -> 8
+    | Seven -> 7
+    | Six   -> 6
+    | Five  -> 5
+    | Four  -> 4
+    | Three -> 3
+    | Two   -> 2
 
 let evaluate hand = 
     let (c1, c2, c3, c4, c5) = hand

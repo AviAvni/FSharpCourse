@@ -6,7 +6,7 @@ type Suit =
     | Clubs
     | Spades
 
-type CardRank = 
+type Rank = 
     | Ace
     | King
     | Queen
@@ -21,7 +21,7 @@ type CardRank =
     | Three
     | Two
 
-type Card = CardRank * Suit
+type Card = Rank * Suit
 
 let Deck : Card list =
     let suits =  [ Hearts; Diamonds; Clubs; Spades ]
