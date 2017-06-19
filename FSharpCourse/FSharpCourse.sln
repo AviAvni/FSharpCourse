@@ -11,13 +11,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module03", "FS
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module04", "FSharpCourse.Module04\FSharpCourse.Module04.fsproj", "{E4D2EFD2-D1E3-4B1F-96D3-34D97321D7A4}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module05", "FSharpCourse.Module05\FSharpCourse.Module05.fsproj", "{A45C0330-9803-4BFE-8B35-490D90441A18}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module09", "FSharpCourse.Module09\FSharpCourse.Module09.fsproj", "{A45C0330-9803-4BFE-8B35-490D90441A18}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module06", "FSharpCourse.Module06\FSharpCourse.Module06.fsproj", "{4B56CFEB-5E27-4670-976B-95A78CD42FF5}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module07", "FSharpCourse.Module07\FSharpCourse.Module07.fsproj", "{99146D90-BB96-4DD5-BCBB-085F7C6CB0D9}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module08", "FSharpCourse.Module08\FSharpCourse.Module08.fsproj", "{67B84814-79A3-443C-99F6-AC6CDD43D163}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module08", "FSharpCourse.Module08\FSharpCourse.Module08.fsproj", "{99146D90-BB96-4DD5-BCBB-085F7C6CB0D9}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module03.ChessTypeProvider", "FSharpCourse.Module03.ChessTypeProvider\FSharpCourse.Module03.ChessTypeProvider.fsproj", "{7A8CA38B-F22E-4866-890E-BE0305785257}"
 EndProject
@@ -61,10 +59,6 @@ Global
 		{99146D90-BB96-4DD5-BCBB-085F7C6CB0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99146D90-BB96-4DD5-BCBB-085F7C6CB0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99146D90-BB96-4DD5-BCBB-085F7C6CB0D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67B84814-79A3-443C-99F6-AC6CDD43D163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67B84814-79A3-443C-99F6-AC6CDD43D163}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67B84814-79A3-443C-99F6-AC6CDD43D163}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67B84814-79A3-443C-99F6-AC6CDD43D163}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8CA38B-F22E-4866-890E-BE0305785257}.Release|Any CPU.Build.0 = Release|Any CPU
