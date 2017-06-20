@@ -89,8 +89,24 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Reactive.Contrib.Monitoring">
+      <HintPath>..\packages\VisualRx.3.0.0\lib\net45\System.Reactive.Contrib.Monitoring.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Contrib.Monitoring.Contracts">
+      <HintPath>..\packages\VisualRx.3.0.0\lib\net45\System.Reactive.Contrib.Monitoring.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Contrib.Monitoring.WcfDiscoveryPlugin">
+      <HintPath>..\packages\VisualRx.3.0.0\lib\net45\Proxies\System.Reactive.Contrib.Monitoring.WcfDiscoveryPlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Contrib.Monitoring.WcfFixedAddressPlugin">
+      <HintPath>..\packages\VisualRx.3.0.0\lib\net45\Proxies\System.Reactive.Contrib.Monitoring.WcfFixedAddressPlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Contrib.Monitoring.WcfQueuedPlugin">
+      <HintPath>..\packages\VisualRx.3.0.0\lib\net45\Proxies\System.Reactive.Contrib.Monitoring.WcfQueuedPlugin.dll</HintPath>
+    </Reference>
     <Reference Include="System.Reactive.Core">
       <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -111,6 +127,8 @@
       <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ValueTuple">
       <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>

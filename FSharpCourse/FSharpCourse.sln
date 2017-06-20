@@ -27,6 +27,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.TypeProviders"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.QuickSort", "FSharpCourse.QuickSort\FSharpCourse.QuickSort.fsproj", "{845E898C-81DC-4478-96A5-AE31624E0E30}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module07", "FSharpCourse.Module07\FSharpCourse.Module07.fsproj", "{084419DA-1EE6-4364-AB35-0BD1543D191F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{845E898C-81DC-4478-96A5-AE31624E0E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{845E898C-81DC-4478-96A5-AE31624E0E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{845E898C-81DC-4478-96A5-AE31624E0E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{084419DA-1EE6-4364-AB35-0BD1543D191F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{084419DA-1EE6-4364-AB35-0BD1543D191F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{084419DA-1EE6-4364-AB35-0BD1543D191F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{084419DA-1EE6-4364-AB35-0BD1543D191F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

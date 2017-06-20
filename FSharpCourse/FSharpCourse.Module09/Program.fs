@@ -3,8 +3,10 @@ open FsXaml
 open System.Windows
 open System.Windows.Controls
 open System.Reactive.Linq
-open System.Reactive.Concurrency
 open System.Threading
+open System.Reactive.Contrib.Monitoring
+open System.Threading.Tasks
+open System.Diagnostics
 
 type MainWindow = XAML<"MainWindow.xaml">
 
@@ -16,64 +18,92 @@ let main _ =
     let app = Application()
     let win = MainWindow()
 
-    let button1 : Button = win.button1;
-    let button2 : Button = win.button2;
+    let button1 : Button = win.button1
+    let button2 : Button = win.button2
+    let btnIntervalStart : Button = win.btnIntervalStart
+    let btnIntervalStop : Button = win.btnIntervalStop
+    let btnBufferStart : Button = win.btnBufferStart
+    let btnBufferStop : Button = win.btnBufferStop
+    let btnWindowStart : Button = win.btnWindowStart
+    let btnWindowStop : Button = win.btnWindowStop
+    let btnGroupByStart : Button = win.btnGroupByStart
+    let btnGroupByStop : Button = win.btnGroupByStop
     
     button1.Click
     |> Event.merge button2.Click
-    |> Event.add (fun a -> MessageBox.Show "Hii" 
+    |> Event.add (fun a -> MessageBox.Show "Hii from event" 
                            |> ignore)
 
-    //button1.Click
-    //|> Observable.merge button2.Click
-    //|> Observable.add (fun a -> MessageBox.Show "Hii"
-    //                            |> ignore)
+    button1.Click
+    |> Observable.merge button2.Click
+    |> Observable.add (fun a -> MessageBox.Show "Hii from observable"
+                                |> ignore)
 
-    printfn "Interval"
-    let observable = Observable.Interval(TimeSpan.FromSeconds(1.0))
+    VisualRxSettings.ClearFilters()
 
-    let subscription = observable.Subscribe (printfn "%d")
+    let info = VisualRxSettings.Initialize(VisualRxWcfDiscoveryProxy.Create())
 
-    Console.ReadLine()
+    let infos = info.Result
+    Trace.WriteLine(infos)
 
-    subscription.Dispose()
+    let subscribe (btnStart : Button) (btnStop : Button) (observable : IObservable<_>) (action : _ -> unit) =
+        btnStart.Click
+        |> Event.add (fun a ->
+            let subscription = observable.Subscribe action
+            btnStart.Tag <- subscription
+            ())
 
-    printfn "Buffer" 
-    let observable = Observable.Interval(TimeSpan.FromSeconds(1.0)).Buffer(3)
+        btnStop.Click
+        |> Event.add (fun a ->
+            let subscription = btnStart.Tag :?> IDisposable
+            subscription.Dispose()
+            ())
 
-    let subscription = observable.Subscribe (printfn "%A")
+    let interval = 
+        Observable
+            .Interval(TimeSpan.FromSeconds(1.0))
+            .Monitor("Interval", 1.0, [||])
+    subscribe btnIntervalStart btnIntervalStop interval (printfn "Interval %d")
 
-    Console.ReadLine()
+    let buffer = 
+        Observable
+            .Interval(TimeSpan.FromSeconds(1.0))
+            .Buffer(3)
+            .Select(fun xs -> String.Join(", ", xs))
+            .Monitor("Buffer", 1.0, [||])
+    subscribe btnBufferStart btnBufferStop buffer (printfn "Buffer %A")
 
-    subscription.Dispose()
-
-    printfn "Window"
-    let observable = Observable.Interval(TimeSpan.FromSeconds(1.0)).Window(3)
-
-    let subscription = observable.Subscribe (fun obs -> obs.Sum().Subscribe (printfn "%d") |> ignore)
-
-    Console.ReadLine()
-
-    subscription.Dispose()
-
-    printfn "GroupBy"
-    let observable = Observable.Interval(TimeSpan.FromSeconds(1.0)).GroupBy(fun x -> x % 3L)
-
+    let window = 
+        Observable
+            .Interval(TimeSpan.FromSeconds(1.0))
+            .Window(3)
+            .MonitorMany("Window", 1.0, [||])
+    subscribe btnWindowStart btnWindowStop window (fun obs -> obs.Sum().Subscribe (printfn "Window %d") |> ignore)
+    
+    let groupBy = 
+        Observable
+            .Interval(TimeSpan.FromSeconds(1.0))
+            .GroupBy(fun x -> x % 3L)
+            .MonitorGroup("GroupBy", 1.0, [||])
     let printKeyValue key value =
-        printfn "%s %d" (String('*', key)) value
+        printfn "GroupBy %s %d" (String('*', key)) value
         ()
-        
-    let subscription = observable.Subscribe (fun obs -> obs.Subscribe (printKeyValue (int obs.Key)) |> ignore)
-
-    Console.ReadLine()
-
-    subscription.Dispose()
+    subscribe btnGroupByStart btnGroupByStop groupBy (fun obs -> obs.Subscribe (printKeyValue (int obs.Key)) |> ignore)
 
     let txt : TextBox = win.txt
     let console : TextBlock = win.console
 
-    let observable = Observable.FromEventPattern(txt, "TextChanged").Throttle(TimeSpan.FromSeconds(1.0))
+    let observable = 
+        Observable
+            .FromEventPattern(txt, "TextChanged")
+            .Where(fun e -> txt.Text.Length > 3)
+            .Throttle(TimeSpan.FromSeconds(1.0))
+            .DistinctUntilChanged()
+            .Monitor("AutoComplete", 1.0, [||])
 
-    let subscription = observable.ObserveOn(SynchronizationContext.Current).Subscribe (fun text -> console.Text <-console.Text + Environment.NewLine + txt.Text )
+    let subscription = 
+        observable
+            .ObserveOn(SynchronizationContext.Current)
+            .Subscribe (fun text -> console.Text <-console.Text + Environment.NewLine + txt.Text )
 
     app.Run win
