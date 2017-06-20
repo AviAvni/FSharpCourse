@@ -56,6 +56,9 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Properties.fs" />
+    <Compile Include="Generators.fs" />
+    <Compile Include="PropertyBaseTestTree.fs" />
     <Compile Include="MissionariesAndCanibals.fs" />
     <Compile Include="MissionariesAndCanibalsProperties.fs" />
     <Compile Include="Program.fs" />
