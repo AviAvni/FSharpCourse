@@ -55,6 +55,11 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Tuples.fs" />
+    <Compile Include="Records.fs" />
+    <Compile Include="Lists.fs" />
+    <Compile Include="DescriminatedUnions.fs" />
+    <Compile Include="UnitOfMeasures.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
