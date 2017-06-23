@@ -4,6 +4,7 @@ open System.Threading.Tasks
 open System.Reactive.Linq
 open System.Reactive.Disposables
 open MorseCodeInterpreter
+open System.Reactive.Contrib.Monitoring
 
 let morseCodeLiveStream () =
     let observable = 
@@ -20,13 +21,19 @@ let morseCodeLiveStream () =
                 disposable :> IDisposable)
     observable
         .Publish()
-        .RefCount();
+        .RefCount()
+        .Monitor("Morse Code Input", 1.0);
 
 [<EntryPoint>]
 let main argv = 
+    VisualRxSettings.ClearFilters()
+
+    let info = VisualRxSettings.Initialize(VisualRxWcfDiscoveryProxy.Create())
+
     let xss = morseCodeLiveStream ()
     let mutable index = 0
     (translate xss)
+        .MonitorMany("Morse Code Result", 2.0)
         .Subscribe(
             fun xs -> 
                 xs.Subscribe(

@@ -23,6 +23,7 @@ let translate (source : IObservable<char>) =
      |> splitBy ' ')
         .Select(fun xs -> xs
                             .Scan(startNode, fun acc ch -> processChar acc ch)
+                            .Monitor("Morse Code Scan", 1.0)
                             .Select(fun x -> match x with
                                              | Node(value, _, _) -> value
                                              | Leaf(value) -> value
