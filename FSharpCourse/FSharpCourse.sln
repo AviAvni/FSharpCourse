@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module01", "FSharpCourse.Module01\FSharpCourse.Module01.fsproj", "{4E70E567-E814-43C9-B837-EFA59D8F77E0}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.QuickSort", "FSharpCourse.QuickSort\FSharpCourse.QuickSort.fsproj", "{845E898C-81DC-4478-96A5-AE31624E0E30}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module07", "FSharpCourse.Module07\FSharpCourse.Module07.fsproj", "{084419DA-1EE6-4364-AB35-0BD1543D191F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.MorseCode", "FSharpCourse.MorseCode\FSharpCourse.MorseCode.fsproj", "{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +84,10 @@ Global
 		{084419DA-1EE6-4364-AB35-0BD1543D191F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{084419DA-1EE6-4364-AB35-0BD1543D191F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{084419DA-1EE6-4364-AB35-0BD1543D191F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +97,6 @@ Global
 		{0E502E15-73DB-45CB-A706-54151CE6F483} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 		{7D27B53F-D728-470D-9EBA-DF53AE1208EA} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 		{845E898C-81DC-4478-96A5-AE31624E0E30} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
+		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 	EndGlobalSection
 EndGlobal
