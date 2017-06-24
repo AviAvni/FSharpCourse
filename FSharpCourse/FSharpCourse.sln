@@ -31,6 +31,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Module07", "FS
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.MorseCode", "FSharpCourse.MorseCode\FSharpCourse.MorseCode.fsproj", "{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCourse.Fibonacci", "FSharpCourse.Fibonacci\FSharpCourse.Fibonacci.fsproj", "{B2D6F08A-14FF-4E68-A425-80486CD75912}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D6F08A-14FF-4E68-A425-80486CD75912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D6F08A-14FF-4E68-A425-80486CD75912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D6F08A-14FF-4E68-A425-80486CD75912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D6F08A-14FF-4E68-A425-80486CD75912}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{7D27B53F-D728-470D-9EBA-DF53AE1208EA} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 		{845E898C-81DC-4478-96A5-AE31624E0E30} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 		{C93B9AFD-6884-45EB-A6E1-1EC89EBA84D6} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
+		{B2D6F08A-14FF-4E68-A425-80486CD75912} = {0C9344E6-C6AC-492D-855F-CF7817C55D2F}
 	EndGlobalSection
 EndGlobal
