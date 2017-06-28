@@ -55,6 +55,12 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="FunctionDefinition.fs" />
+    <Compile Include="FunctionAsFirstClass.fs" />
+    <Compile Include="CurryingAndPartialApplication.fs" />
+    <Compile Include="Values.fs" />
+    <Compile Include="Recursion.fs" />
+    <Compile Include="Immutability.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
