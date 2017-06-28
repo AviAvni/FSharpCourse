@@ -33,10 +33,10 @@ let parseCard (s : string) =
 [<EntryPoint>]
 let main argv =
     let hands = Console.ReadLine().Split([| ' ' |], StringSplitOptions.RemoveEmptyEntries)
-    let [| w1; w2; w3; w4; w5|] = hands.[1..5] |> Array.map parseCard
-    let blackScore = evaluate (w1, w2, w3, w4, w5)
-    let [| b1; b2; b3; b4; b5|] = hands.[7..11] |> Array.map parseCard
-    let whiteScore = evaluate (b1, b2, b3, b4, b5)
+    let [| b1; b2; b3; b4; b5|] = hands.[1..5] |> Array.map parseCard
+    let blackScore = evaluate (b1, b2, b3, b4, b5)
+    let [| w1; w2; w3; w4; w5|] = hands.[7..11] |> Array.map parseCard
+    let whiteScore = evaluate (w1, w2, w3, w4, w5)
     match compare blackScore whiteScore with
     | Player1 r -> printfn "Black win %A" r
     | Player2 r -> printfn "White win %A" r

@@ -20,7 +20,7 @@ type Winner =
     | Player2 of PokerRank
     | Tie     of PokerRank
 
-let rank card = 
+let rankValue card = 
     match card with
     | Ace   -> 14
     | King  -> 13
@@ -36,23 +36,25 @@ let rank card =
     | Three -> 3
     | Two   -> 2
 
-let evaluate hand = 
+let evaluate (hand : Hand) = 
     let (c1, c2, c3, c4, c5) = hand
-    let listHand = [| c1; c2; c3; c4; c5 |]
-    let ranks = listHand |> Array.map (fun c -> fst c |> rank) |> Array.sortBy (fun r -> -r)
+    let listHand = [| c1; c2; c3; c4; c5 |] 
+                   |> Array.sortBy (fun (rank, _) -> -rankValue rank) 
+    let ranks = listHand 
+                |> Array.map (fun (rank, _) -> rankValue rank) 
     
     let suitGroup = 
         listHand
-        |> Seq.groupBy (fun c -> snd c)
-        |> Seq.map (fun c -> (fst c, snd c |> Seq.length))
-        |> Seq.sortBy (fun g -> -snd g)
+        |> Seq.groupBy (fun (rank, suit) -> suit)
+        |> Seq.map (fun (suit, cards) -> (suit, cards |> Seq.length))
+        |> Seq.sortBy (fun (_, cards) -> -cards)
         |> List.ofSeq
     
     let rankGroup = 
         listHand
-        |> Seq.groupBy (fun c -> fst c)
-        |> Seq.map (fun c -> (fst c |> rank, snd c |> Seq.length))
-        |> Seq.sortBy (fun g -> -snd g)
+        |> Seq.groupBy (fun (rank, _) -> rank)
+        |> Seq.map (fun (rank, cards) -> (rankValue rank, cards |> Seq.length))
+        |> Seq.sortBy (fun (_, cards) -> -cards)
         |> List.ofSeq
 
     let (|Straight|_|) rankGroup = 
@@ -66,7 +68,7 @@ let evaluate hand =
         | _ -> None
     
     match suitGroup with
-    | (_, 4) :: [] -> 
+    | (_, 5) :: [] -> 
         match rankGroup with
         | Straight high -> StraightFlush(high)
         | _             -> Flush(ranks.[0])
@@ -81,59 +83,43 @@ let evaluate hand =
         | _                                          -> HighCard(ranks.[0], ranks.[1], ranks.[2], ranks.[3], ranks.[4])
 
 let compare rank1 rank2 =
+    let compareRank r1 r2 =
+        if r1 > r2 then Player1 rank1 
+        elif r1 < r2 then Player2 rank2 
+        else Tie rank1
+    let compareRanks r1 r2 =
+        let cmp = 
+            r2 
+            |> List.zip r1 
+            |> List.map (fun (r1, r2) -> r1 - r2) 
+            |> List.tryFind (fun r -> r <> 0)
+        match cmp with
+        | Some x when x > 0 -> Player1 rank1 
+        | Some _ -> Player2 rank2
+        | None -> Tie rank1
     match rank1, rank2 with
-    | StraightFlush r1, StraightFlush r2 when r1 > r2 -> Player1 rank1
-    | StraightFlush r1, StraightFlush r2 when r1 < r2 -> Player2 rank2
+    | StraightFlush r1, StraightFlush r2 -> compareRank r1 r2
     | StraightFlush _, _ -> Player1 rank1
     | _, StraightFlush _ -> Player2 rank2
-    | FourOfAKind r1, FourOfAKind r2 when r1 > r2 -> Player1 rank1
-    | FourOfAKind r1, FourOfAKind r2 when r1 < r2 -> Player2 rank2
+    | FourOfAKind r1, FourOfAKind r2 -> compareRank r1 r2
     | FourOfAKind _, _ -> Player1 rank1
     | _, FourOfAKind _ -> Player2 rank2
-    | FullHouse(r1, _), FullHouse(r2, _) when r1 > r2 -> Player1 rank1
-    | FullHouse(r1, _), FullHouse(r2, _) when r1 < r2 -> Player2 rank2
-    | FullHouse(_, r1), FullHouse(_, r2) when r1 > r2 -> Player1 rank1
-    | FullHouse(_, r1), FullHouse(_, r2) when r1 < r2 -> Player2 rank2
+    | FullHouse(r11, r12), FullHouse(r21, r22) -> compareRanks [r11; r12] [r21; r22]
     | FullHouse _, _ -> Player1 rank1
     | _, FullHouse _ -> Player2 rank2
-    | Flush r1, Flush r2 when r1 > r2 -> Player1 rank1
-    | Flush r1, Flush r2 when r1 < r2 -> Player2 rank2
+    | Flush r1, Flush r2-> compareRank r1 r2
     | Flush _, _ -> Player1 rank1
     | _, Flush _ -> Player2 rank2
-    | Straight r1, Straight r2 when r1 > r2 -> Player1 rank1
-    | Straight r1, Straight r2 when r1 < r2 -> Player2 rank2
+    | Straight r1, Straight r2 -> compareRank r1 r2
     | Straight _, _ -> Player1 rank1
     | _, Straight _ -> Player2 rank2
-    | ThreeOfAKind r1, ThreeOfAKind r2  when r1 > r2 -> Player1 rank1
-    | ThreeOfAKind r1, ThreeOfAKind r2  when r1 < r2 -> Player2 rank2
+    | ThreeOfAKind r1, ThreeOfAKind r2  -> compareRank r1 r2
     | ThreeOfAKind _, _ -> Player1 rank1
     | _, ThreeOfAKind _ -> Player2 rank2
-    | TwoPair(r1, _, _), TwoPair(r2, _, _) when r1 > r2 -> Player1 rank1
-    | TwoPair(r1, _, _), TwoPair(r2, _, _) when r1 < r2 -> Player2 rank2
-    | TwoPair(_, r1, _), TwoPair(_, r2, _) when r1 > r2 -> Player1 rank1
-    | TwoPair(_, r1, _), TwoPair(_, r2, _) when r1 < r2 -> Player2 rank2
-    | TwoPair(_, _, r1), TwoPair(_, _, r2) when r1 > r2 -> Player1 rank1
-    | TwoPair(_, _, r1), TwoPair(_, _, r2) when r1 < r2 -> Player2 rank2
+    | TwoPair(r11, r12, r13), TwoPair(r21, r22, r23) -> compareRanks [r11; r12; r13] [r21; r22; r23]
     | TwoPair _, _ -> Player1 rank1
     | _, TwoPair _ -> Player2 rank2
-    | OnePair(r1, _, _, _), OnePair(r2, _, _, _) when r1 > r2 -> Player1 rank1
-    | OnePair(r1, _, _, _), OnePair(r2, _, _, _) when r1 < r2 -> Player2 rank2
-    | OnePair(_, r1, _, _), OnePair(_, r2, _, _) when r1 > r2 -> Player1 rank1
-    | OnePair(_, r1, _, _), OnePair(_, r2, _, _) when r1 < r2 -> Player2 rank2
-    | OnePair(_, _, r1, _), OnePair(_, _, r2, _) when r1 > r2 -> Player1 rank1
-    | OnePair(_, _, r1, _), OnePair(_, _, r2, _) when r1 < r2 -> Player2 rank2
-    | OnePair(_, _, _, r1), OnePair(_, _, _, r2) when r1 > r2 -> Player1 rank1
-    | OnePair(_, _, _, r1), OnePair(_, _, _, r2) when r1 < r2 -> Player2 rank2
+    | OnePair(r11, r12, r13, r14), OnePair(r21, r22, r23, r24) -> compareRanks [r11; r12; r13; r14] [r21; r22; r23; r24]
     | OnePair _, _ -> Player1 rank1
     | _, OnePair _ -> Player2 rank2
-    | HighCard(r1, _, _, _, _), HighCard(r2, _, _, _, _) when r1 > r2 -> Player1 rank1
-    | HighCard(r1, _, _, _, _), HighCard(r2, _, _, _, _) when r1 < r2 -> Player2 rank2
-    | HighCard(_, r1, _, _, _), HighCard(_, r2, _, _, _) when r1 > r2 -> Player1 rank1
-    | HighCard(_, r1, _, _, _), HighCard(_, r2, _, _, _) when r1 < r2 -> Player2 rank2
-    | HighCard(_, _, r1, _, _), HighCard(_, _, r2, _, _) when r1 > r2 -> Player1 rank1
-    | HighCard(_, _, r1, _, _), HighCard(_, _, r2, _, _) when r1 < r2 -> Player2 rank2
-    | HighCard(_, _, _, r1, _), HighCard(_, _, _, r2, _) when r1 > r2 -> Player1 rank1
-    | HighCard(_, _, _, r1, _), HighCard(_, _, _, r2, _) when r1 < r2 -> Player2 rank2
-    | HighCard(_, _, _, _, r1), HighCard(_, _, _, _, r2) when r1 > r2 -> Player1 rank1
-    | HighCard(_, _, _, _, r1), HighCard(_, _, _, _, r2) when r1 < r2 -> Player2 rank2
-    | _ -> Tie rank1
+    | HighCard(r11, r12, r13, r14, r15), HighCard(r21, r22, r23, r24, r25) -> compareRanks [r11; r12; r13; r14; r15] [r21; r22; r23; r24; r25]
