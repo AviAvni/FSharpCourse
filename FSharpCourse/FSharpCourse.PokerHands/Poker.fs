@@ -92,34 +92,34 @@ let compare rank1 rank2 =
             r2 
             |> List.zip r1 
             |> List.map (fun (r1, r2) -> r1 - r2) 
-            |> List.tryFind (fun r -> r <> 0)
+            |> List.tryFind (fun r    -> r <> 0)
         match cmp with
         | Some x when x > 0 -> Player1 rank1 
-        | Some _ -> Player2 rank2
-        | None -> Tie rank1
-    match rank1, rank2 with
-    | StraightFlush r1, StraightFlush r2 -> compareRank r1 r2
-    | StraightFlush _, _ -> Player1 rank1
-    | _, StraightFlush _ -> Player2 rank2
-    | FourOfAKind r1, FourOfAKind r2 -> compareRank r1 r2
-    | FourOfAKind _, _ -> Player1 rank1
-    | _, FourOfAKind _ -> Player2 rank2
-    | FullHouse(r11, r12), FullHouse(r21, r22) -> compareRanks [r11; r12] [r21; r22]
-    | FullHouse _, _ -> Player1 rank1
-    | _, FullHouse _ -> Player2 rank2
-    | Flush r1, Flush r2-> compareRank r1 r2
-    | Flush _, _ -> Player1 rank1
-    | _, Flush _ -> Player2 rank2
-    | Straight r1, Straight r2 -> compareRank r1 r2
-    | Straight _, _ -> Player1 rank1
-    | _, Straight _ -> Player2 rank2
-    | ThreeOfAKind r1, ThreeOfAKind r2  -> compareRank r1 r2
-    | ThreeOfAKind _, _ -> Player1 rank1
-    | _, ThreeOfAKind _ -> Player2 rank2
-    | TwoPair(r11, r12, r13), TwoPair(r21, r22, r23) -> compareRanks [r11; r12; r13] [r21; r22; r23]
-    | TwoPair _, _ -> Player1 rank1
-    | _, TwoPair _ -> Player2 rank2
-    | OnePair(r11, r12, r13, r14), OnePair(r21, r22, r23, r24) -> compareRanks [r11; r12; r13; r14] [r21; r22; r23; r24]
-    | OnePair _, _ -> Player1 rank1
-    | _, OnePair _ -> Player2 rank2
-    | HighCard(r11, r12, r13, r14, r15), HighCard(r21, r22, r23, r24, r25) -> compareRanks [r11; r12; r13; r14; r15] [r21; r22; r23; r24; r25]
+        | Some _            -> Player2 rank2
+        | None              -> Tie rank1
+    match rank1                          , rank2 with
+    | StraightFlush r1                   , StraightFlush r2                    -> compareRank r1 r2
+    | StraightFlush _                    , _                                   -> Player1 rank1
+    | _                                  , StraightFlush _                     -> Player2 rank2
+    | FourOfAKind r1                     , FourOfAKind r2                      -> compareRank r1 r2
+    | FourOfAKind _                      , _                                   -> Player1 rank1
+    | _                                  , FourOfAKind _                       -> Player2 rank2
+    | FullHouse(r11, r12)                , FullHouse(r21, r22)                 -> compareRanks [r11; r12] [r21; r22]
+    | FullHouse _                        , _                                   -> Player1 rank1
+    | _                                  , FullHouse _                         -> Player2 rank2
+    | Flush r1                           , Flush r2                            -> compareRank r1 r2
+    | Flush _                            , _                                   -> Player1 rank1
+    | _                                  , Flush _                             -> Player2 rank2
+    | Straight r1                        , Straight r2                         -> compareRank r1 r2
+    | Straight _                         , _                                   -> Player1 rank1
+    | _                                  , Straight _                          -> Player2 rank2
+    | ThreeOfAKind r1                    , ThreeOfAKind r2                     -> compareRank r1 r2
+    | ThreeOfAKind _                     , _                                   -> Player1 rank1
+    | _                                  , ThreeOfAKind _                      -> Player2 rank2
+    | TwoPair(r11, r12, r13)             , TwoPair(r21, r22, r23)              -> compareRanks [r11; r12; r13] [r21; r22; r23]
+    | TwoPair _                          , _                                   -> Player1 rank1
+    | _                                  , TwoPair _                           -> Player2 rank2
+    | OnePair(r11, r12, r13, r14)        , OnePair(r21, r22, r23, r24)         -> compareRanks [r11; r12; r13; r14] [r21; r22; r23; r24]
+    | OnePair _                          , _                                   -> Player1 rank1
+    | _                                  , OnePair _                           -> Player2 rank2
+    | HighCard(r11, r12, r13, r14, r15)  , HighCard(r21, r22, r23, r24, r25)   -> compareRanks [r11; r12; r13; r14; r15] [r21; r22; r23; r24; r25]
