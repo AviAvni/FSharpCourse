@@ -7,7 +7,7 @@ type Grid = { Width:int; Height:int }
 let gridProduct = size * size
 let grid = { Width=size; Height=size }
     
-[<Struct>]
+//[<Struct>]
 type Location = {x:int; y:int}
 
 let applyGrid f =
@@ -29,7 +29,7 @@ type State =
     }
     with static member createDeafault isAlive = { neighbours=[];isAlive=isAlive; wasAlive=false; }
 
-[<Struct>]
+//[<Struct>]
 type UpdateView =
     | Reset
     | Update of bool * Location
