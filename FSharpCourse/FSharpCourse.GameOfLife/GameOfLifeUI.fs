@@ -7,9 +7,8 @@ open System.Threading
 open System.Collections.Generic
 open GameOfLifeLogic
 
-let image = Controls.Image(Stretch=Stretch.Uniform)
-
-let createImage pixels = BitmapSource.Create(grid.Width, grid.Height, 96., 96., PixelFormats.Gray8, null, pixels, size)
+let source = WriteableBitmap(grid.Width, grid.Height, 96., 96., PixelFormats.Gray8, BitmapPalette([|Colors.Black; Colors.White|]))
+let image = Controls.Image(Source=source,Stretch=Stretch.Uniform)
 
 let updateAgent () =
     let ctx = SynchronizationContext.Current
@@ -28,7 +27,7 @@ let updateAgent () =
                                 pixels.[x+y*size] <- byte 128
                             | _ -> pixels.[x+y*size] <- byte 0)
                     do! Async.SwitchToContext ctx
-                    image.Source <- createImage pixels
+                    source.WritePixels(Int32Rect(0,0,grid.Width, grid.Height), pixels, size, 0)
                     do! Async.SwitchToThreadPool()
                 return! loop agentStates
         }

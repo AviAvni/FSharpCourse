@@ -42,25 +42,29 @@ let createCell location alive (updateAgent : Agent<_>) =
         Agent<CellMessage>.Start(fun inbox ->
             let rec loop state = async {
                 let! msg = inbox.Receive()
-                match msg with
-                | CellMessage.Reset ->
-                    state.neighbours |> Seq.iter(fun cell -> cell (State(fun msg -> inbox.Post msg)))
-                    neighbourStates.Clear()
-                    return! loop { state with wasAlive=state.isAlive }
-                | Neighbours(neighbours) -> return! loop { state with neighbours=neighbours }
-                | State(c) -> c (NeighbourState(location, state.wasAlive))
-                              return! loop state
-                | NeighbourState(cell, alive) ->
-                    neighbourStates.[cell] <- alive
-                    if neighbourStates.Count = 8 then
-                        let aliveState =
-                            match neighbourStates |> Seq.filter(fun (KeyValue(_,v)) -> v) |> Seq.length with
-                            | a when a > 3  || a < 2 -> false
-                            | 3 -> true
-                            | _ -> state.isAlive
-                        updateAgent.Post (Update(aliveState, location))
-                        return! loop { state with isAlive = aliveState }
-                    else return! loop state
+                let state =
+                    match msg with
+                    | CellMessage.Reset ->
+                        let msg = State(fun msg -> inbox.Post msg)
+                        for cell in state.neighbours do
+                            cell msg
+                        neighbourStates.Clear()
+                        { state with wasAlive=state.isAlive }
+                    | Neighbours(neighbours) -> { state with neighbours=neighbours }
+                    | State(c) -> c (NeighbourState(location, state.wasAlive))
+                                  state
+                    | NeighbourState(cell, alive) ->
+                        neighbourStates.[cell] <- alive
+                        if neighbourStates.Count = 8 then
+                            let aliveState =
+                                match neighbourStates |> Seq.filter(fun (KeyValue(_,v)) -> v) |> Seq.length with
+                                | a when a > 3  || a < 2 -> false
+                                | 3 -> true
+                                | _ -> state.isAlive
+                            updateAgent.Post (Update(aliveState, location))
+                            { state with isAlive = aliveState }
+                        else state
+                return! loop state
             }
             loop (State.createDeafault alive ))
 
