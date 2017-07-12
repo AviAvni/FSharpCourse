@@ -10,11 +10,16 @@ let parallel2 (job1, job2) =
 
 let printThenSleepThenPrint x = 
     async { 
-        printfn "before sleep %s" x
+        printfn "before sleep %A" x
         do! Async.Sleep 3000 
-        printfn "wake up %s" x
+        printfn "wake up %A" x
+        return x
     } 
 
-parallel2 (printThenSleepThenPrint "A", printThenSleepThenPrint "B") 
-|> Async.Ignore 
-|> Async.Start
+let printResult =
+    async {
+        let! res = parallel2 (printThenSleepThenPrint 1, printThenSleepThenPrint System.DateTime.Now) 
+        printf "%A" res
+    }
+
+Async.Start printResult

@@ -1,6 +1,6 @@
 ﻿open System
 open System.Diagnostics
-open Hopac
+
 
 let rec QuickSort lst = 
     match lst with
@@ -10,6 +10,7 @@ let rec QuickSort lst =
         let sleft = QuickSort left 
         let sright = QuickSort right
         sleft@pivot::sright
+
 
 let QuickSortTailRecursive lst = 
     let rec QuickSortCont l cont =
@@ -34,6 +35,8 @@ let rec QuickSortParallelAsync lst =
             return sleft@pivot::sright
     }
 
+open Hopac
+
 let rec QuickSortParallelJob lst = 
     job {
         match lst with
@@ -55,9 +58,9 @@ let Measure s f x =
 let rnd = new Random()
 let l = [for i in [1 .. 1000000] -> rnd.Next(1, 10000)]
 
-let qs = Measure "QuickSort" QuickSort l
+//let qs = Measure "QuickSort" QuickSort l
 //let qstr = Measure "QuickSortTailRecursive" QuickSortTailRecursive l
-let qspa = Measure "QuickSortParallelAsync" (fun l -> QuickSortParallelAsync l |> Async.RunSynchronously) l
-let qspj = Measure "QuickSortParallelAsync" (fun l -> QuickSortParallelJob l |> run) l
+//let qspa = Measure "QuickSortParallelAsync" (fun l -> QuickSortParallelAsync l |> Async.RunSynchronously) l
+let qspj = Measure "QuickSortParallelJob" (fun l -> QuickSortParallelJob l |> run) l
 
 //printfn "qs = qsp: %A" (qspj = qsp)
