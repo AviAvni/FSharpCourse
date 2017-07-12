@@ -3,8 +3,7 @@
 type ListBuilder() =
     member this.Bind(m, f) =
         m
-        |> List.map f
-        |> List.concat
+        |> List.collect f
 
     member this.Return x = [x]
 
