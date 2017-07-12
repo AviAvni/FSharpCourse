@@ -106,15 +106,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Expecto">
-      <HintPath>..\packages\Expecto.4.2.1\lib\net40\Expecto.dll</HintPath>
+      <HintPath>..\packages\Expecto.5.0.0\lib\net461\Expecto.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Expecto.BenchmarkDotNet">
-      <HintPath>..\packages\Expecto.BenchmarkDotNet.4.2.1\lib\net40\Expecto.BenchmarkDotNet.dll</HintPath>
+      <HintPath>..\packages\Expecto.BenchmarkDotNet.5.0.0\lib\net461\Expecto.BenchmarkDotNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Expecto.FsCheck">
-      <HintPath>..\packages\Expecto.FsCheck.4.2.1\lib\net40\Expecto.FsCheck.dll</HintPath>
+      <HintPath>..\packages\Expecto.FsCheck.5.0.0\lib\net461\Expecto.FsCheck.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsCheck">

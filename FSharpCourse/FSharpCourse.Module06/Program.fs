@@ -8,6 +8,7 @@ let tests =
 
 let config = { FsCheckConfig.defaultConfig with maxTest = 10000 }
 
+[<Tests>]
 let properties = 
     testList "FsCheck samples" 
         [ testProperty "Addition is commutative" <| fun a b -> a + b = b + a
