@@ -1,9 +1,7 @@
 ﻿module MissionariesAndCanibals
 
-// A state-transition system is a 4-tuple Σ=(S, A, E, γ)
 let nM = 3
 
-// S = {s1, s2, …} is a finite or recursively enumerable set of states
 type Characters =
     | Nobody
     | Missionaries of int
@@ -24,10 +22,10 @@ type Characters =
 type RiverBank =
     | Left
     | Right
-        override x.ToString() = 
-            match x with 
-            | Left  -> "left bank"
-            | Right -> "right bank"
+    override x.ToString() = 
+        match x with 
+        | Left  -> "left bank"
+        | Right -> "right bank"
 
 let private isSafe(characters: Characters) =
     match characters with 
@@ -89,7 +87,6 @@ type State(bank: RiverBank, characters: Characters) =
 
 let InitialState = new State(Left, MissionariesAndCanibals(nM, nM))
 
-// A = {a1, a2, …} is a finite or recursively enumerable set of actions
 type BoatTransfer =
     | Transfer of Characters
 
@@ -203,13 +200,11 @@ type History =
                         | CurrentState(yGen, yState, _) -> compare xGen yGen
                     | _ -> invalidArg "yobj" "cannot compare values of different types"
 
-// E = {e1, e2, …} is a finite or recursively enumerable set of events
 let IsGoalState(state: State) =
     match state.Characters with
     | MissionariesAndCanibals(m, c) when m = nM && c = nM -> state.Bank = Right
     | _ -> false
 
-// γ: S×(A∪E)→2^S is a state transition function
 open FSharpx.Collections
 open Microsoft.FSharp.Collections
     

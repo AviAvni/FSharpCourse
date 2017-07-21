@@ -51,7 +51,7 @@ let properties =
 [<EntryPoint>]
 let main args = 
     runTestsWithArgs defaultConfig args tests |> ignore
-    runTests defaultConfig properties |> ignore
+    runTestsWithArgs defaultConfig args properties |> ignore
     let history = MissionariesAndCanibals.Run ()
     printfn "%A" history
     MissionariesAndCanibalsProperties.``prove statements`` ()

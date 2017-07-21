@@ -7,6 +7,13 @@ type Tree =
     | Leaf of int
     | Branch of Tree * Tree
 
+let map2 f g1 g2 =
+    gen {
+        let! x = g1
+        let! y = g2
+        return f x y
+    }
+
 let tree = 
     let rec treeSub s = 
         match s with
@@ -34,7 +41,7 @@ let rec mapTree f t =
     | Branch(t1, t2) -> Branch(mapTree f t1, mapTree f t2)
 
 let add a b = a + b
-let p1 = forAll (Arb.from<Tree>) (fun t1 -> let mapAddOneTwice = t1 |> mapTree (add 1) |> mapTree (add 1)
-                                            let mapAddTwo = t1 |> mapTree (add 2)
-                                            mapAddOneTwice = mapAddTwo)
+let p1 = forAll (Arb.from<Tree>) (fun t1 x y -> let mapAddOneTwice = t1 |> mapTree (add x) |> mapTree (add y)
+                                                let mapAddTwo = t1 |> mapTree (add (x + y))
+                                                mapAddOneTwice = mapAddTwo)
 p1 |> Check.Quick

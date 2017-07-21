@@ -96,14 +96,19 @@ let main _ =
     let observable = 
         Observable
             .FromEventPattern(txt, "TextChanged")
-            .Where(fun e -> txt.Text.Length > 3)
+            .Monitor("TextChanged", 1.0, [||])
+            .Select(fun e -> txt.Text)
+            .Monitor("Select", 2.0, [||])
             .Throttle(TimeSpan.FromSeconds(1.0))
+            .Monitor("Throttle", 4.0, [||])
+            .Where(fun e -> e.Length > 3)
+            .Monitor("Where", 3.0, [||])
             .DistinctUntilChanged()
-            .Monitor("AutoComplete", 1.0, [||])
+            .Monitor("AutoComplete", 5.0, [||])
 
     let subscription = 
         observable
             .ObserveOn(SynchronizationContext.Current)
-            .Subscribe (fun text -> console.Text <-console.Text + Environment.NewLine + txt.Text )
+            .Subscribe (fun text -> console.Text <- console.Text + Environment.NewLine + text )
 
     app.Run win
